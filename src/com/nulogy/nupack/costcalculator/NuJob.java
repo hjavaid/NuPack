@@ -3,6 +3,7 @@ package com.nulogy.nupack.costcalculator;
 public class NuJob
 {
 
+	protected static final double DEFAULT_FLAT_MARKUP_PERCENTAGE_IN_DECIMAL = 0.05;
 	private double basePrice;
 
 	public NuJob(double basePrice)
@@ -11,9 +12,9 @@ public class NuJob
 		this.basePrice = basePrice;
 	}
 
-	public double getTotalPrice()
+	public final double getTotalPrice()
 	{
-		return this.basePrice * 0.05;
+		return this.basePrice * NuJob.DEFAULT_FLAT_MARKUP_PERCENTAGE_IN_DECIMAL;
 	}
 
 }

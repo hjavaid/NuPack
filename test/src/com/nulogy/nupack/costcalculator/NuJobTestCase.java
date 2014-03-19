@@ -9,6 +9,8 @@ import org.junit.Test;
 public class NuJobTestCase
 {
 
+	private static final double DELTA = 1e-15;
+
 	@Before
 	public void setUp() throws Exception
 	{}
@@ -22,8 +24,7 @@ public class NuJobTestCase
 	{
 		final double basePrice = 100;
 		final NuJob nuJob = new NuJob(basePrice);
-		double totalPrice = nuJob.getTotalPrice();
-		assertEquals("The total price for the job should be 5", 5, totalPrice, 1e-15);
+		assertEquals("The total price for the job should be 5", 5, nuJob.getTotalPrice(), DELTA);
 	}
 
 }
