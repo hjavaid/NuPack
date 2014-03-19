@@ -27,4 +27,12 @@ public class NuJobTestCase
 		assertEquals("The total price for the job should be 5", 5, nuJob.getTotalPrice(), DELTA);
 	}
 
+	@Test
+	public void testThatIfTheBasePriceIsZeroThenTheTotalPriceComesOutToZero() throws Exception
+	{
+		final double basePrice = 0;
+		final NuJob nuJob = new NuJob(basePrice);
+		assertEquals("The total price for the job should be 0", 0, nuJob.getTotalPrice(), DELTA);
+	}
+
 }
