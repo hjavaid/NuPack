@@ -43,4 +43,12 @@ public class NuJobTestCase
 		final NuJob nuJob = new NuJob(basePrice);
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void testThatIfNotANumberIsInputTheSystemThrowsAnException() throws Exception
+	{
+		final double basePrice = Double.NaN;
+		@SuppressWarnings("unused")
+		final NuJob nuJob = new NuJob(basePrice);
+	}
+
 }
