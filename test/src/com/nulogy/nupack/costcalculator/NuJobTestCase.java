@@ -39,6 +39,7 @@ public class NuJobTestCase
 	public void testThatIfANegavtiveBasePriceIsInputTheSystemThrowsAnException() throws Exception
 	{
 		final double basePrice = -1;
+		@SuppressWarnings("unused")
 		final NuJob nuJob = new NuJob(basePrice);
 	}
 
