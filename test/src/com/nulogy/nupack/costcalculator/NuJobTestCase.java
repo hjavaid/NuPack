@@ -35,4 +35,11 @@ public class NuJobTestCase
 		assertEquals("The total price for the job should be 0", 0, nuJob.getTotalPrice(), DELTA);
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void testThatIfANegavtiveBasePriceIsInputTheSystemThrowsAnException() throws Exception
+	{
+		final double basePrice = -1;
+		final NuJob nuJob = new NuJob(basePrice);
+	}
+
 }
