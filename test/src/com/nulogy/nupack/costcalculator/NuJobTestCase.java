@@ -1,10 +1,8 @@
 package com.nulogy.nupack.costcalculator;
 
-import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 public class NuJobTestCase
@@ -13,18 +11,6 @@ public class NuJobTestCase
 	private static final double DELTA = 1e-15;
 	private static final double BASE_PRICE = 100;
 	private NuJob nuJob;
-
-	@Before
-	public void setUp() throws Exception
-	{
-
-	}
-
-	@After
-	public void tearDown() throws Exception
-	{
-
-	}
 
 	private final NuJob createNuJob(double basePrice, int numberOfPersonsWorking)
 	{

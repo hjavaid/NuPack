@@ -2,7 +2,6 @@ package com.nulogy.nupack.costcalculator;
 
 public class NuJob
 {
-
 	protected static final String ELECTRONICS = "electronics";
 	protected static final String FOOD = "food";
 	protected static final String DRUGS = "drugs";
