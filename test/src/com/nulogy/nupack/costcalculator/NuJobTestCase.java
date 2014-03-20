@@ -24,7 +24,9 @@ public class NuJobTestCase
 	{
 		final double basePrice = 100;
 		final NuJob nuJob = new NuJob(basePrice, NuJob.MINIMUM_NUMBER_OF_PERSONS_PER_JOB);
-		assertEquals("The total price for the job should be " + (100 + 100 * NuJob.DEFAULT_FLAT_MARKUP_PERCENTAGE_IN_DECIMAL) + ((1.2 * 105) / 100), (100 + 100 * NuJob.DEFAULT_FLAT_MARKUP_PERCENTAGE_IN_DECIMAL) + ((1.2 * 105) / 100), nuJob.getTotalPrice(), DELTA);
+		final double basePriceAfterDefaultMarkup = basePrice + basePrice * NuJob.DEFAULT_FLAT_MARKUP_PERCENTAGE_IN_DECIMAL;
+		final double markupForPersonsWorking = basePriceAfterDefaultMarkup + (NuJob.MARKUP_RATIO_PERSONS_WORKING_IN_DECIMAL * basePriceAfterDefaultMarkup);
+		assertEquals("The total price for the job should be " + markupForPersonsWorking, markupForPersonsWorking, nuJob.getTotalPrice(), DELTA);
 	}
 
 	@Test
@@ -64,7 +66,8 @@ public class NuJobTestCase
 	{
 		final double basePrice = 100;
 		final NuJob nuJob = new NuJob(basePrice, NuJob.MINIMUM_NUMBER_OF_PERSONS_PER_JOB);
-		assertEquals("The total price for the job should be " + (100 + 100 * NuJob.DEFAULT_FLAT_MARKUP_PERCENTAGE_IN_DECIMAL) + ((1.2 * 105) / 100),
-			(100 + 100 * NuJob.DEFAULT_FLAT_MARKUP_PERCENTAGE_IN_DECIMAL) + ((1.2 * 105) / 100), nuJob.getTotalPrice(), DELTA);
+		final double basePriceAfterDefaultMarkup = basePrice + basePrice * NuJob.DEFAULT_FLAT_MARKUP_PERCENTAGE_IN_DECIMAL;
+		final double markupForPersonsWorking = basePriceAfterDefaultMarkup + (NuJob.MARKUP_RATIO_PERSONS_WORKING_IN_DECIMAL * basePriceAfterDefaultMarkup);
+		assertEquals("The total price for the job should be " + markupForPersonsWorking, markupForPersonsWorking, nuJob.getTotalPrice(), DELTA);
 	}
 }
