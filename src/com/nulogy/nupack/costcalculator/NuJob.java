@@ -41,29 +41,36 @@ public class NuJob
 	public final double getTotalPrice()
 	{
 		final double priceAfterFlatMarkup = this.basePrice + this.basePrice * MARKUP_RATIO_FLAT_DECIMAL;
-		double pharmaceuticalMarkup = 0;
-		double foodMarkup = 0;
-		double electronicsMarkup = 0;
+		double markupFromMaterialTypes = 0;
 		double personsWorkingMarkup = 0;
 
 		if (this.materialCategory != null && !this.materialCategory.isEmpty())
 		{
-			if (DRUGS.equalsIgnoreCase(materialCategory))
-			{
-				pharmaceuticalMarkup = priceAfterFlatMarkup * MARKUP_RATIO_PHARMACEUTICALS_DECIMAL;
-			}
-			else if (FOOD.equalsIgnoreCase(materialCategory))
-			{
-				foodMarkup = priceAfterFlatMarkup * MARKUP_RATIO_FOOD_DECIMAL;
-			}
-			else if (ELECTRONICS.equalsIgnoreCase(materialCategory))
-			{
-				electronicsMarkup = priceAfterFlatMarkup * MARKUP_RATIO_ELECTRONICS;
-			}
-
+			markupFromMaterialTypes = calculateMarkups(priceAfterFlatMarkup);
 		}
 		personsWorkingMarkup = priceAfterFlatMarkup * MARKUP_RATIO_PERSONS_WORKING_DECIMAL * numberOfPersonsWorking;
-		return priceAfterFlatMarkup + pharmaceuticalMarkup + foodMarkup + electronicsMarkup + personsWorkingMarkup;
+		
+		return priceAfterFlatMarkup + markupFromMaterialTypes + personsWorkingMarkup;
+	}
+
+	private final double calculateMarkups(final double priceAfterFlatMarkup)
+	{
+		double markupFromMaterialTypes = 0;
+
+		if (DRUGS.equalsIgnoreCase(materialCategory))
+		{
+			markupFromMaterialTypes = priceAfterFlatMarkup * MARKUP_RATIO_PHARMACEUTICALS_DECIMAL;
+		}
+		else if (FOOD.equalsIgnoreCase(materialCategory))
+		{
+			markupFromMaterialTypes = priceAfterFlatMarkup * MARKUP_RATIO_FOOD_DECIMAL;
+		}
+		else if (ELECTRONICS.equalsIgnoreCase(materialCategory))
+		{
+			markupFromMaterialTypes = priceAfterFlatMarkup * MARKUP_RATIO_ELECTRONICS;
+		}
+
+		return markupFromMaterialTypes;
 	}
 
 	public String getMaterialCategory()
