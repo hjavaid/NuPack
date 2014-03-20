@@ -49,7 +49,7 @@ public class NuJob
 			markupFromMaterialTypes = calculateMarkups(priceAfterFlatMarkup);
 		}
 		personsWorkingMarkup = priceAfterFlatMarkup * MARKUP_RATIO_PERSONS_WORKING_DECIMAL * numberOfPersonsWorking;
-		
+
 		return priceAfterFlatMarkup + markupFromMaterialTypes + personsWorkingMarkup;
 	}
 
@@ -78,4 +78,10 @@ public class NuJob
 		return this.materialCategory;
 	}
 
+	@Override
+	public String toString()
+	{
+		final String materialCategory = this.materialCategory == null || this.materialCategory.isEmpty() ? "None" : this.materialCategory;
+		return "[Base Price:" + this.basePrice + ";Number of persons working:" + this.numberOfPersonsWorking + ";Material Category:" + materialCategory + "]";
+	}
 }
