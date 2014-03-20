@@ -10,6 +10,7 @@ public class NuJobTestCase
 {
 
 	private static final double DELTA = 1e-15;
+	private static final double BASE_PRICE = 100;
 	private NuJob nuJob;
 
 	@Before
@@ -39,9 +40,8 @@ public class NuJobTestCase
 	@Test
 	public void testThatDefaultFlatMarkupOnAllJobsIsCalculatedAsFivePercentOfTheBasePrice()
 	{
-		final double basePrice = 100;
-		nuJob = createNuJob(basePrice,NuJob.MINIMUM_NUMBER_OF_PERSONS_PER_JOB);
-		final double expectedTotalPrice = totalPriceWithFlatAndPersonMarkup(basePrice, NuJob.MINIMUM_NUMBER_OF_PERSONS_PER_JOB);
+		nuJob = createNuJob(BASE_PRICE, NuJob.MINIMUM_NUMBER_OF_PERSONS_PER_JOB);
+		final double expectedTotalPrice = totalPriceWithFlatAndPersonMarkup(BASE_PRICE, NuJob.MINIMUM_NUMBER_OF_PERSONS_PER_JOB);
 		assertEquals("The total price for the job should be " + expectedTotalPrice, expectedTotalPrice, nuJob.getTotalPrice(), DELTA);
 	}
 
@@ -49,7 +49,7 @@ public class NuJobTestCase
 	public void testThatIfTheBasePriceIsZeroThenTheTotalPriceComesOutToZero()
 	{
 		final double basePrice = 0;
-		nuJob = createNuJob(basePrice,NuJob.MINIMUM_NUMBER_OF_PERSONS_PER_JOB);
+		nuJob = createNuJob(basePrice, NuJob.MINIMUM_NUMBER_OF_PERSONS_PER_JOB);
 		assertEquals("The total price for the job should be 0", 0, nuJob.getTotalPrice(), DELTA);
 	}
 
@@ -70,28 +70,24 @@ public class NuJobTestCase
 	@Test(expected = IllegalArgumentException.class)
 	public void testThatThereShouldAtleastBeOnePersonAssignedPerJob()
 	{
-		final double basePrice = 100;
 		@SuppressWarnings("unused")
-		final NuJob nuJob = new NuJob(basePrice, 0);
+		final NuJob nuJob = new NuJob(BASE_PRICE, 0);
 	}
 
 	@Test
 	public void testThatIfOnePersonWorksOnTheJobTheSystemCalculatesTheMarkupOnBasePricePlusFlatMarkup()
 	{
-		final double basePrice = 100;
-		nuJob = createNuJob(basePrice,NuJob.MINIMUM_NUMBER_OF_PERSONS_PER_JOB);
-		final double expectedTotalPrice = totalPriceWithFlatAndPersonMarkup(basePrice, NuJob.MINIMUM_NUMBER_OF_PERSONS_PER_JOB);
+		nuJob = createNuJob(BASE_PRICE, NuJob.MINIMUM_NUMBER_OF_PERSONS_PER_JOB);
+		final double expectedTotalPrice = totalPriceWithFlatAndPersonMarkup(BASE_PRICE, NuJob.MINIMUM_NUMBER_OF_PERSONS_PER_JOB);
 		assertEquals("The total price for the job should be " + expectedTotalPrice, expectedTotalPrice, nuJob.getTotalPrice(), DELTA);
 	}
 
 	@Test
 	public void testThatIfTwoPersonsWorksOnTheJobTheSystemCalculatesTheMarkupOnBasePricePlusFlatMarkup()
 	{
-		final double basePrice = 100;
 		final int numberOfPersonsWorking = 2;
-		nuJob = createNuJob(basePrice,numberOfPersonsWorking);
-		final double expectedTotalPrice = totalPriceWithFlatAndPersonMarkup(basePrice, numberOfPersonsWorking);
+		nuJob = createNuJob(BASE_PRICE, numberOfPersonsWorking);
+		final double expectedTotalPrice = totalPriceWithFlatAndPersonMarkup(BASE_PRICE, numberOfPersonsWorking);
 		assertEquals("The total price for the job with 2 working persons should be " + expectedTotalPrice, expectedTotalPrice, nuJob.getTotalPrice(), DELTA);
-
 	}
 }
