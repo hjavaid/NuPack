@@ -44,10 +44,10 @@ public class NuJobTestCase
 		double foodMarkup = 0;
 		double electronicsMarkup = 0;
 		double personsWorkingMarkup = 0;
-		
+
 		if (materialCategory != null && !materialCategory.isEmpty())
 		{
-			if (NuJob.PHARMACEUTICALS.equalsIgnoreCase(nuJob.getMaterialCategory()))
+			if (NuJob.DRUGS.equalsIgnoreCase(nuJob.getMaterialCategory()))
 			{
 				pharmaceuticalMarkup = priceAfterFlatMarkup * NuJob.MARKUP_RATIO_PHARMACEUTICALS_DECIMAL;
 			}
@@ -55,9 +55,9 @@ public class NuJobTestCase
 			{
 				foodMarkup = priceAfterFlatMarkup * NuJob.MARKUP_RATIO_FOOD_DECIMAL;
 			}
-			else if ("electronics".equalsIgnoreCase(nuJob.getMaterialCategory()))
+			else if (NuJob.ELECTRONICS.equalsIgnoreCase(nuJob.getMaterialCategory()))
 			{
-				electronicsMarkup = priceAfterFlatMarkup * NuJob.MARKUP_RATIO_FOOD_ELECTRONICS;
+				electronicsMarkup = priceAfterFlatMarkup * NuJob.MARKUP_RATIO_ELECTRONICS;
 			}
 		}
 		personsWorkingMarkup = NuJob.MARKUP_RATIO_PERSONS_WORKING_DECIMAL * numberOfWorkingPersons * priceAfterFlatMarkup;
@@ -122,16 +122,16 @@ public class NuJobTestCase
 	@Test
 	public void testThatForMaterialTypePharmaceuticalsTheSystemAddsOnTheRelevantMarkupInTotalPrice() throws Exception
 	{
-		nuJob = createNuJob(BASE_PRICE, NuJob.MINIMUM_NUMBER_OF_PERSONS_PER_JOB, NuJob.PHARMACEUTICALS);
-		final double expectedTotalPrice = caclculateTotalPrice(BASE_PRICE, NuJob.MINIMUM_NUMBER_OF_PERSONS_PER_JOB, NuJob.PHARMACEUTICALS);
+		nuJob = createNuJob(BASE_PRICE, NuJob.MINIMUM_NUMBER_OF_PERSONS_PER_JOB, NuJob.DRUGS);
+		final double expectedTotalPrice = caclculateTotalPrice(BASE_PRICE, NuJob.MINIMUM_NUMBER_OF_PERSONS_PER_JOB, NuJob.DRUGS);
 		assertEquals("The total price for the job should be " + expectedTotalPrice, expectedTotalPrice, nuJob.getTotalPrice(), DELTA);
 	}
 
 	@Test
 	public void testThatForMaterialTypeFoodTheSystemAddsOnTheRelevantMarkupInTotalPrice() throws Exception
 	{
-		nuJob = createNuJob(BASE_PRICE, NuJob.MINIMUM_NUMBER_OF_PERSONS_PER_JOB, "food");
-		final double expectedTotalPrice = caclculateTotalPrice(BASE_PRICE, NuJob.MINIMUM_NUMBER_OF_PERSONS_PER_JOB, "food");
+		nuJob = createNuJob(BASE_PRICE, NuJob.MINIMUM_NUMBER_OF_PERSONS_PER_JOB, NuJob.FOOD);
+		final double expectedTotalPrice = caclculateTotalPrice(BASE_PRICE, NuJob.MINIMUM_NUMBER_OF_PERSONS_PER_JOB, NuJob.FOOD);
 		assertEquals("The total price for the job should be " + expectedTotalPrice, expectedTotalPrice, nuJob.getTotalPrice(), DELTA);
 	}
 
