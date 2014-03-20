@@ -3,6 +3,7 @@ package com.nulogy.nupack.costcalculator;
 public class NuJob
 {
 
+	protected static final String ELECTRONICS = "electronics";
 	protected static final String FOOD = "food";
 	protected static final String PHARMACEUTICALS = "pharmaceuticals";
 	protected static final double MARKUP_RATIO_PERSONS_WORKING_DECIMAL = 1.2 / 100;
@@ -10,6 +11,7 @@ public class NuJob
 	protected static final double MARKUP_RATIO_FLAT_DECIMAL = 0.05;
 	protected static final double MARKUP_RATIO_PHARMACEUTICALS_DECIMAL = 7.5 / 100;
 	protected static final double MARKUP_RATIO_FOOD_DECIMAL = 13 / 100;
+	protected static final double MARKUP_RATIO_FOOD_ELECTRONICS = 2 / 100;
 	private double basePrice;
 	private int numberOfPersonsWorking;
 	private String materialCategory;
@@ -48,8 +50,8 @@ public class NuJob
 			else if (FOOD.equalsIgnoreCase(materialCategory))
 			{
 				totalPrice += totalPrice * MARKUP_RATIO_FOOD_DECIMAL;
-			}else if("electronics".equalsIgnoreCase(materialCategory)){
-				totalPrice += (totalPrice * 2)/100;
+			}else if(ELECTRONICS.equalsIgnoreCase(materialCategory)){
+				totalPrice += totalPrice * MARKUP_RATIO_FOOD_ELECTRONICS;
 			}
 
 		}
