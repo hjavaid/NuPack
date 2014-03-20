@@ -39,24 +39,30 @@ public class NuJobTestCase
 
 	private double caclculateTotalPrice(final double basePrice, final int numberOfWorkingPersons, String materialCategory)
 	{
-		double totalPrice = basePrice + basePrice * NuJob.MARKUP_RATIO_FLAT_DECIMAL;
+		final double priceAfterFlatMarkup = basePrice + basePrice * NuJob.MARKUP_RATIO_FLAT_DECIMAL;
+		double pharmaceuticalMarkup = 0;
+		double foodMarkup = 0;
+		double electronicsMarkup = 0;
+		double personsWorkingMarkup = 0;
+		
 		if (materialCategory != null && !materialCategory.isEmpty())
 		{
 			if (NuJob.PHARMACEUTICALS.equalsIgnoreCase(nuJob.getMaterialCategory()))
 			{
-				totalPrice += totalPrice * NuJob.MARKUP_RATIO_PHARMACEUTICALS_DECIMAL;
+				pharmaceuticalMarkup = priceAfterFlatMarkup * NuJob.MARKUP_RATIO_PHARMACEUTICALS_DECIMAL;
 			}
 			else if (NuJob.FOOD.equalsIgnoreCase(nuJob.getMaterialCategory()))
 			{
-				totalPrice += totalPrice * NuJob.MARKUP_RATIO_FOOD_DECIMAL;
+				foodMarkup = priceAfterFlatMarkup * NuJob.MARKUP_RATIO_FOOD_DECIMAL;
 			}
 			else if ("electronics".equalsIgnoreCase(nuJob.getMaterialCategory()))
 			{
-				totalPrice += totalPrice * NuJob.MARKUP_RATIO_FOOD_ELECTRONICS;
+				electronicsMarkup = priceAfterFlatMarkup * NuJob.MARKUP_RATIO_FOOD_ELECTRONICS;
 			}
-
 		}
-		return totalPrice + (NuJob.MARKUP_RATIO_PERSONS_WORKING_DECIMAL * numberOfWorkingPersons * totalPrice);
+		personsWorkingMarkup = NuJob.MARKUP_RATIO_PERSONS_WORKING_DECIMAL * numberOfWorkingPersons * priceAfterFlatMarkup;
+
+		return priceAfterFlatMarkup + pharmaceuticalMarkup + foodMarkup + electronicsMarkup + personsWorkingMarkup;
 	}
 
 	@Test

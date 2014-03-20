@@ -5,7 +5,7 @@ public class NuJob
 
 	protected static final String ELECTRONICS = "electronics";
 	protected static final String FOOD = "food";
-	protected static final String PHARMACEUTICALS = "pharmaceuticals";
+	protected static final String PHARMACEUTICALS = "drugs";
 	protected static final double MARKUP_RATIO_PERSONS_WORKING_DECIMAL = 1.2 / 100;
 	protected static final int MINIMUM_NUMBER_OF_PERSONS_PER_JOB = 1;
 	protected static final double MARKUP_RATIO_FLAT_DECIMAL = 0.05;
@@ -40,23 +40,30 @@ public class NuJob
 
 	public final double getTotalPrice()
 	{
-		double totalPrice = this.basePrice + this.basePrice * MARKUP_RATIO_FLAT_DECIMAL;
+		final double priceAfterFlatMarkup = this.basePrice + this.basePrice * MARKUP_RATIO_FLAT_DECIMAL;
+		double pharmaceuticalMarkup = 0;
+		double foodMarkup = 0;
+		double electronicsMarkup = 0;
+		double personsWorkingMarkup = 0;
+
 		if (this.materialCategory != null && !this.materialCategory.isEmpty())
 		{
 			if (PHARMACEUTICALS.equalsIgnoreCase(materialCategory))
 			{
-				totalPrice += totalPrice * MARKUP_RATIO_PHARMACEUTICALS_DECIMAL;
+				pharmaceuticalMarkup = priceAfterFlatMarkup * MARKUP_RATIO_PHARMACEUTICALS_DECIMAL;
 			}
 			else if (FOOD.equalsIgnoreCase(materialCategory))
 			{
-				totalPrice += totalPrice * MARKUP_RATIO_FOOD_DECIMAL;
-			}else if(ELECTRONICS.equalsIgnoreCase(materialCategory)){
-				totalPrice += totalPrice * MARKUP_RATIO_FOOD_ELECTRONICS;
+				foodMarkup = priceAfterFlatMarkup * MARKUP_RATIO_FOOD_DECIMAL;
+			}
+			else if (ELECTRONICS.equalsIgnoreCase(materialCategory))
+			{
+				electronicsMarkup = priceAfterFlatMarkup * MARKUP_RATIO_FOOD_ELECTRONICS;
 			}
 
 		}
-		totalPrice += totalPrice * MARKUP_RATIO_PERSONS_WORKING_DECIMAL * numberOfPersonsWorking;
-		return totalPrice;
+		personsWorkingMarkup = priceAfterFlatMarkup * MARKUP_RATIO_PERSONS_WORKING_DECIMAL * numberOfPersonsWorking;
+		return priceAfterFlatMarkup + pharmaceuticalMarkup + foodMarkup + electronicsMarkup + personsWorkingMarkup;
 	}
 
 	public String getMaterialCategory()
