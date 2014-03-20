@@ -6,12 +6,16 @@ public class NuJob
 	protected static final double DEFAULT_FLAT_MARKUP_PERCENTAGE_IN_DECIMAL = 0.05;
 	private double basePrice;
 
-	public NuJob(double basePrice) throws IllegalArgumentException
+	public NuJob(double basePrice, int numberOfPersons) throws IllegalArgumentException
 	{
 		super();
 		if (basePrice != Math.abs(basePrice))
 		{
 			throw new IllegalArgumentException("Only a positive base price is allowed");
+		}
+		else if (numberOfPersons < 1)
+		{
+			throw new IllegalArgumentException("At least one person has to work on a job");
 		}
 
 		this.basePrice = basePrice;

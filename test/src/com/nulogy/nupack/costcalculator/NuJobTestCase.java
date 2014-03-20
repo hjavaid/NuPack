@@ -23,7 +23,7 @@ public class NuJobTestCase
 	public void testThatDefaultFlatMarkupOnAllJobsIsCalculatedAsFivePercentOfTheBasePrice()
 	{
 		final double basePrice = 100;
-		final NuJob nuJob = new NuJob(basePrice);
+		final NuJob nuJob = new NuJob(basePrice, 1);
 		final int totalPrice = 105;
 		assertEquals("The total price for the job should be " + totalPrice, totalPrice, nuJob.getTotalPrice(), DELTA);
 	}
@@ -32,7 +32,7 @@ public class NuJobTestCase
 	public void testThatIfTheBasePriceIsZeroThenTheTotalPriceComesOutToZero() throws Exception
 	{
 		final double basePrice = 0;
-		final NuJob nuJob = new NuJob(basePrice);
+		final NuJob nuJob = new NuJob(basePrice, 1);
 		assertEquals("The total price for the job should be 0", 0, nuJob.getTotalPrice(), DELTA);
 	}
 
@@ -41,7 +41,7 @@ public class NuJobTestCase
 	{
 		final double basePrice = -1;
 		@SuppressWarnings("unused")
-		final NuJob nuJob = new NuJob(basePrice);
+		final NuJob nuJob = new NuJob(basePrice, 1);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -49,7 +49,15 @@ public class NuJobTestCase
 	{
 		final double basePrice = Double.NaN;
 		@SuppressWarnings("unused")
-		final NuJob nuJob = new NuJob(basePrice);
+		final NuJob nuJob = new NuJob(basePrice, 1);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testThatThereShouldAtleastBeOnePersonAssignedPerJob() throws Exception
+	{
+		final double basePrice = 100;
+		final NuJob nuJob = new NuJob(basePrice, 0);
+
 	}
 
 }
