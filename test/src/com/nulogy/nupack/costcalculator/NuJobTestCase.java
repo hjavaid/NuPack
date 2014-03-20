@@ -24,8 +24,7 @@ public class NuJobTestCase
 	{
 		final double basePrice = 100;
 		final NuJob nuJob = new NuJob(basePrice, NuJob.MINIMUM_NUMBER_OF_PERSONS_PER_JOB);
-		final int totalPrice = 105;
-		assertEquals("The total price for the job should be " + totalPrice, totalPrice, nuJob.getTotalPrice(), DELTA);
+		assertEquals("The total price for the job should be " + (100 + 100 * NuJob.DEFAULT_FLAT_MARKUP_PERCENTAGE_IN_DECIMAL) + ((1.2 * 105) / 100), (100 + 100 * NuJob.DEFAULT_FLAT_MARKUP_PERCENTAGE_IN_DECIMAL) + ((1.2 * 105) / 100), nuJob.getTotalPrice(), DELTA);
 	}
 
 	@Test
@@ -58,5 +57,14 @@ public class NuJobTestCase
 		final double basePrice = 100;
 		@SuppressWarnings("unused")
 		final NuJob nuJob = new NuJob(basePrice, 0);
+	}
+
+	@Test
+	public void testThatIfOnePersonWorksOnTheJobTheSystemCalculatesTheMarkupOnBasePricePlusFlatMarkup() throws Exception
+	{
+		final double basePrice = 100;
+		final NuJob nuJob = new NuJob(basePrice, NuJob.MINIMUM_NUMBER_OF_PERSONS_PER_JOB);
+		assertEquals("The total price for the job should be " + (100 + 100 * NuJob.DEFAULT_FLAT_MARKUP_PERCENTAGE_IN_DECIMAL) + ((1.2 * 105) / 100),
+			(100 + 100 * NuJob.DEFAULT_FLAT_MARKUP_PERCENTAGE_IN_DECIMAL) + ((1.2 * 105) / 100), nuJob.getTotalPrice(), DELTA);
 	}
 }

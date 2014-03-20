@@ -26,7 +26,9 @@ public class NuJob
 
 	public final double getTotalPrice()
 	{
-		return this.basePrice + this.basePrice * NuJob.DEFAULT_FLAT_MARKUP_PERCENTAGE_IN_DECIMAL;
+		double totalPrice = this.basePrice + this.basePrice * NuJob.DEFAULT_FLAT_MARKUP_PERCENTAGE_IN_DECIMAL;
+		totalPrice += (totalPrice * 1.2) / 100;
+		return totalPrice;
 	}
 
 }
