@@ -3,6 +3,7 @@ package com.nulogy.nupack.costcalculator;
 public class NuJob
 {
 
+	protected static final String PHARMACEUTICALS = "pharmaceuticals";
 	protected static final double MARKUP_RATIO_PERSONS_WORKING_IN_DECIMAL = 1.2 / 100;
 	protected static final int MINIMUM_NUMBER_OF_PERSONS_PER_JOB = 1;
 	protected static final double DEFAULT_FLAT_MARKUP_PERCENTAGE_IN_DECIMAL = 0.05;
@@ -38,7 +39,7 @@ public class NuJob
 		double totalPrice = this.basePrice + this.basePrice * DEFAULT_FLAT_MARKUP_PERCENTAGE_IN_DECIMAL;
 		if (this.materialCategory != null && !this.materialCategory.isEmpty())
 		{
-			if ("pharmaceuticals".equalsIgnoreCase(materialCategory))
+			if (PHARMACEUTICALS.equalsIgnoreCase(materialCategory))
 			{
 				totalPrice += totalPrice * NuJob.MARKUP_RATIO_PHARMACEUTICALS;
 			}
