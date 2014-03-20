@@ -45,8 +45,8 @@ public class NuJobTestCase
 			if (NuJob.PHARMACEUTICALS.equalsIgnoreCase(nuJob.getMaterialCategory()))
 			{
 				totalPrice += totalPrice * NuJob.MARKUP_RATIO_PHARMACEUTICALS_DECIMAL;
-			}else if("food".equalsIgnoreCase(nuJob.getMaterialCategory())){
-				totalPrice += (totalPrice * 13)/100;
+			}else if(NuJob.FOOD.equalsIgnoreCase(nuJob.getMaterialCategory())){
+				totalPrice += totalPrice * NuJob.MARKUP_RATIO_FOOD_DECIMAL;
 			}
 
 		}
