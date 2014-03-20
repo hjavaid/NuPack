@@ -139,15 +139,19 @@ public class NuJobTestCase
 	@Test
 	public void testThatForOtherMaterialTypesTheSystemDoesnotAddAnyMarkupInTotalPrice() throws Exception
 	{
-		nuJob = createNuJob(12456.95, 4, "books");
-		final double expectedTotalPrice = caclculateTotalPrice(12456.95, 4, "books");
+		final double totalPriceItShouldTakeForFourPersonsPackagingBooks = 12456.95;
+		final int numberOfPersonsWorking = 4;
+		nuJob = createNuJob(totalPriceItShouldTakeForFourPersonsPackagingBooks, numberOfPersonsWorking, "books");
+		final double expectedTotalPrice = caclculateTotalPrice(totalPriceItShouldTakeForFourPersonsPackagingBooks, numberOfPersonsWorking, "books");
 		assertEquals("The total price for the job should be " + expectedTotalPrice, expectedTotalPrice, nuJob.getTotalPrice(), DELTA);
 	}
 
 	@Test
 	public void testThatTheSystemCalculatesTheCorrectPriceByAlwaysAddingMarkupsOnBasePricePlusFlatMarkup() throws Exception
 	{
-		nuJob = createNuJob(5432.00, 4, NuJob.FOOD);
+		final double basePrice = 5432.00;
+		final int numberOfPersonsWorking = 4;
+		nuJob = createNuJob(basePrice, numberOfPersonsWorking, NuJob.FOOD);
 		double intentionallyWrongExpectedPrice = 6573.72;
 		assertNotSame("The total price for the job should be " + intentionallyWrongExpectedPrice, intentionallyWrongExpectedPrice, nuJob.getTotalPrice());
 	}
