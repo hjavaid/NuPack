@@ -4,10 +4,10 @@ public class NuJob
 {
 
 	protected static final String PHARMACEUTICALS = "pharmaceuticals";
-	protected static final double MARKUP_RATIO_PERSONS_WORKING_IN_DECIMAL = 1.2 / 100;
+	protected static final double MARKUP_RATIO_PERSONS_WORKING_DECIMAL = 1.2 / 100;
 	protected static final int MINIMUM_NUMBER_OF_PERSONS_PER_JOB = 1;
-	protected static final double DEFAULT_FLAT_MARKUP_PERCENTAGE_IN_DECIMAL = 0.05;
-	protected static final double MARKUP_RATIO_PHARMACEUTICALS = 7.5 / 100;
+	protected static final double MARKUP_RATIO_FLAT_DECIMAL = 0.05;
+	protected static final double MARKUP_RATIO_PHARMACEUTICALS_DECIMAL = 7.5 / 100;
 	private double basePrice;
 	private int numberOfPersonsWorking;
 	private String materialCategory;
@@ -36,16 +36,16 @@ public class NuJob
 
 	public final double getTotalPrice()
 	{
-		double totalPrice = this.basePrice + this.basePrice * DEFAULT_FLAT_MARKUP_PERCENTAGE_IN_DECIMAL;
+		double totalPrice = this.basePrice + this.basePrice * MARKUP_RATIO_FLAT_DECIMAL;
 		if (this.materialCategory != null && !this.materialCategory.isEmpty())
 		{
 			if (PHARMACEUTICALS.equalsIgnoreCase(materialCategory))
 			{
-				totalPrice += totalPrice * NuJob.MARKUP_RATIO_PHARMACEUTICALS;
+				totalPrice += totalPrice * NuJob.MARKUP_RATIO_PHARMACEUTICALS_DECIMAL;
 			}
 
 		}
-		totalPrice += totalPrice * MARKUP_RATIO_PERSONS_WORKING_IN_DECIMAL * numberOfPersonsWorking;
+		totalPrice += totalPrice * MARKUP_RATIO_PERSONS_WORKING_DECIMAL * numberOfPersonsWorking;
 		return totalPrice;
 	}
 

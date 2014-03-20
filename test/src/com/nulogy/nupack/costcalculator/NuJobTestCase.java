@@ -39,16 +39,16 @@ public class NuJobTestCase
 
 	private double caclculateTotalPrice(final double basePrice, final int numberOfWorkingPersons, String materialCategory)
 	{
-		double totalPrice = basePrice + basePrice * NuJob.DEFAULT_FLAT_MARKUP_PERCENTAGE_IN_DECIMAL;
+		double totalPrice = basePrice + basePrice * NuJob.MARKUP_RATIO_FLAT_DECIMAL;
 		if (materialCategory != null && !materialCategory.isEmpty())
 		{
 			if (NuJob.PHARMACEUTICALS.equalsIgnoreCase(nuJob.getMaterialCategory()))
 			{
-				totalPrice += totalPrice * NuJob.MARKUP_RATIO_PHARMACEUTICALS;
+				totalPrice += totalPrice * NuJob.MARKUP_RATIO_PHARMACEUTICALS_DECIMAL;
 			}
 
 		}
-		return totalPrice + (NuJob.MARKUP_RATIO_PERSONS_WORKING_IN_DECIMAL * numberOfWorkingPersons * totalPrice);
+		return totalPrice + (NuJob.MARKUP_RATIO_PERSONS_WORKING_DECIMAL * numberOfWorkingPersons * totalPrice);
 	}
 
 	@Test
