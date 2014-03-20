@@ -5,6 +5,12 @@ import static org.junit.Assert.assertNotSame;
 
 import org.junit.Test;
 
+/**
+ * Test class for NuJob.
+ * 
+ * @author Haris Javaid
+ * @email: haris7802@gmail.com Dated:19-03-2014
+ **/
 public class NuJobTestCase
 {
 

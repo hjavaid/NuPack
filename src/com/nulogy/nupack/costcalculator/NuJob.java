@@ -1,5 +1,14 @@
 package com.nulogy.nupack.costcalculator;
 
+/**
+ * This class encapsulates the data and the methods necessary to calculate the total price for repackaging different
+ * goods. The factors that effect the total price include the category of material packaged, number of persons working
+ * on a job and the flat markup on the base price. This class makes an assumption that there should at least be one
+ * person working on a job.
+ * 
+ * @author Haris Javaid
+ * @email: haris7802@gmail.com Dated:19-03-2014
+ */
 public class NuJob
 {
 	protected static final String ELECTRONICS = "electronics";
