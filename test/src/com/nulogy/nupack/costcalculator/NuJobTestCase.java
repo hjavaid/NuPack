@@ -1,5 +1,6 @@
 package com.nulogy.nupack.costcalculator;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.After;
@@ -149,5 +150,13 @@ public class NuJobTestCase
 		nuJob = createNuJob(12456.95, 4, "books");
 		final double expectedTotalPrice = caclculateTotalPrice(12456.95, 4, "books");
 		assertEquals("The total price for the job should be " + expectedTotalPrice, expectedTotalPrice, nuJob.getTotalPrice(), DELTA);
+	}
+
+	@Test
+	public void testThatTheSystemCalculatesTheCorrectPriceByAlwaysAddingMarkupsOnBasePricePlusFlatMarkup() throws Exception
+	{
+		nuJob = createNuJob(5432.00, 4, NuJob.FOOD);
+		double intentionallyWrongExpectedPrice = 6573.72;
+		assertNotSame("The total price for the job should be " + intentionallyWrongExpectedPrice, intentionallyWrongExpectedPrice, nuJob.getTotalPrice());
 	}
 }
