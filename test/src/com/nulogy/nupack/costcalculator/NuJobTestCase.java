@@ -31,17 +31,31 @@ public class NuJobTestCase
 		return nuJob;
 	}
 
-	private double totalPriceWithFlatAndPersonMarkup(final double basePrice, final int numberOfWorkingPersons)
+	private final NuJob createNuJob(double basePrice, int numberOfPersonsWorking, String materialCategory)
 	{
-		final double basePriceAfterDefaultMarkup = basePrice + basePrice * NuJob.DEFAULT_FLAT_MARKUP_PERCENTAGE_IN_DECIMAL;
-		return basePriceAfterDefaultMarkup + (NuJob.MARKUP_RATIO_PERSONS_WORKING_IN_DECIMAL * numberOfWorkingPersons * basePriceAfterDefaultMarkup);
+		nuJob = new NuJob(basePrice, numberOfPersonsWorking, materialCategory);
+		return nuJob;
+	}
+
+	private double totalPriceWithFlatAndPersonMarkup(final double basePrice, final int numberOfWorkingPersons, String materialCategory)
+	{
+		double totalPrice = basePrice + basePrice * NuJob.DEFAULT_FLAT_MARKUP_PERCENTAGE_IN_DECIMAL;
+		if (materialCategory != null && !materialCategory.isEmpty())
+		{
+			if ("pharmaceuticals".equalsIgnoreCase(nuJob.getMaterialCategory()))
+			{
+				totalPrice += totalPrice * NuJob.MARKUP_RATIO_PHARMACEUTICALS;
+			}
+
+		}
+		return totalPrice + (NuJob.MARKUP_RATIO_PERSONS_WORKING_IN_DECIMAL * numberOfWorkingPersons * totalPrice);
 	}
 
 	@Test
 	public void testThatDefaultFlatMarkupOnAllJobsIsCalculatedAsFivePercentOfTheBasePrice()
 	{
 		nuJob = createNuJob(BASE_PRICE, NuJob.MINIMUM_NUMBER_OF_PERSONS_PER_JOB);
-		final double expectedTotalPrice = totalPriceWithFlatAndPersonMarkup(BASE_PRICE, NuJob.MINIMUM_NUMBER_OF_PERSONS_PER_JOB);
+		final double expectedTotalPrice = totalPriceWithFlatAndPersonMarkup(BASE_PRICE, NuJob.MINIMUM_NUMBER_OF_PERSONS_PER_JOB, "");
 		assertEquals("The total price for the job should be " + expectedTotalPrice, expectedTotalPrice, nuJob.getTotalPrice(), DELTA);
 	}
 
@@ -78,7 +92,7 @@ public class NuJobTestCase
 	public void testThatIfOnePersonWorksOnTheJobTheSystemCalculatesTheMarkupOnBasePricePlusFlatMarkup()
 	{
 		nuJob = createNuJob(BASE_PRICE, NuJob.MINIMUM_NUMBER_OF_PERSONS_PER_JOB);
-		final double expectedTotalPrice = totalPriceWithFlatAndPersonMarkup(BASE_PRICE, NuJob.MINIMUM_NUMBER_OF_PERSONS_PER_JOB);
+		final double expectedTotalPrice = totalPriceWithFlatAndPersonMarkup(BASE_PRICE, NuJob.MINIMUM_NUMBER_OF_PERSONS_PER_JOB, "");
 		assertEquals("The total price for the job should be " + expectedTotalPrice, expectedTotalPrice, nuJob.getTotalPrice(), DELTA);
 	}
 
@@ -87,7 +101,15 @@ public class NuJobTestCase
 	{
 		final int numberOfPersonsWorking = 2;
 		nuJob = createNuJob(BASE_PRICE, numberOfPersonsWorking);
-		final double expectedTotalPrice = totalPriceWithFlatAndPersonMarkup(BASE_PRICE, numberOfPersonsWorking);
+		final double expectedTotalPrice = totalPriceWithFlatAndPersonMarkup(BASE_PRICE, numberOfPersonsWorking, "");
 		assertEquals("The total price for the job with 2 working persons should be " + expectedTotalPrice, expectedTotalPrice, nuJob.getTotalPrice(), DELTA);
+	}
+
+	@Test
+	public void testThatForMaterialTypePharmaceuticalsTheSystemAddsOnTheRelevantMarkupInTotalPrice() throws Exception
+	{
+		nuJob = createNuJob(BASE_PRICE, NuJob.MINIMUM_NUMBER_OF_PERSONS_PER_JOB, "pharmaceuticals");
+		final double expectedTotalPrice = totalPriceWithFlatAndPersonMarkup(BASE_PRICE, NuJob.MINIMUM_NUMBER_OF_PERSONS_PER_JOB, "pharmaceuticals");
+		assertEquals("The total price for the job should be " + expectedTotalPrice, expectedTotalPrice, nuJob.getTotalPrice(), DELTA);
 	}
 }
