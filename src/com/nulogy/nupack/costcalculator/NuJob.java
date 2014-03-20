@@ -42,6 +42,8 @@ public class NuJob
 			if (PHARMACEUTICALS.equalsIgnoreCase(materialCategory))
 			{
 				totalPrice += totalPrice * NuJob.MARKUP_RATIO_PHARMACEUTICALS_DECIMAL;
+			}else if("food".equalsIgnoreCase(materialCategory)){
+				totalPrice += (totalPrice * 13)/100;
 			}
 
 		}

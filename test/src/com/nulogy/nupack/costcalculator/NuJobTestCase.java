@@ -45,6 +45,8 @@ public class NuJobTestCase
 			if (NuJob.PHARMACEUTICALS.equalsIgnoreCase(nuJob.getMaterialCategory()))
 			{
 				totalPrice += totalPrice * NuJob.MARKUP_RATIO_PHARMACEUTICALS_DECIMAL;
+			}else if("food".equalsIgnoreCase(nuJob.getMaterialCategory())){
+				totalPrice += (totalPrice * 13)/100;
 			}
 
 		}
@@ -108,8 +110,16 @@ public class NuJobTestCase
 	@Test
 	public void testThatForMaterialTypePharmaceuticalsTheSystemAddsOnTheRelevantMarkupInTotalPrice() throws Exception
 	{
-		nuJob = createNuJob(BASE_PRICE, NuJob.MINIMUM_NUMBER_OF_PERSONS_PER_JOB, "pharmaceuticals");
+		nuJob = createNuJob(BASE_PRICE, NuJob.MINIMUM_NUMBER_OF_PERSONS_PER_JOB, NuJob.PHARMACEUTICALS);
 		final double expectedTotalPrice = caclculateTotalPrice(BASE_PRICE, NuJob.MINIMUM_NUMBER_OF_PERSONS_PER_JOB, NuJob.PHARMACEUTICALS);
+		assertEquals("The total price for the job should be " + expectedTotalPrice, expectedTotalPrice, nuJob.getTotalPrice(), DELTA);
+	}
+
+	@Test
+	public void testThatForMaterialTypeFoodTheSystemAddsOnTheRelevantMarkupInTotalPrice() throws Exception
+	{
+		nuJob = createNuJob(BASE_PRICE, NuJob.MINIMUM_NUMBER_OF_PERSONS_PER_JOB, "food");
+		final double expectedTotalPrice = caclculateTotalPrice(BASE_PRICE, NuJob.MINIMUM_NUMBER_OF_PERSONS_PER_JOB, "food");
 		assertEquals("The total price for the job should be " + expectedTotalPrice, expectedTotalPrice, nuJob.getTotalPrice(), DELTA);
 	}
 }
