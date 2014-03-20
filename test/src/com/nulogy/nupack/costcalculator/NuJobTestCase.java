@@ -58,7 +58,5 @@ public class NuJobTestCase
 		final double basePrice = 100;
 		@SuppressWarnings("unused")
 		final NuJob nuJob = new NuJob(basePrice, 0);
-
 	}
-
 }
