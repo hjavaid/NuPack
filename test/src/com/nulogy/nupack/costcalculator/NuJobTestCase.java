@@ -120,7 +120,7 @@ public class NuJobTestCase
 	}
 
 	@Test
-	public void testThatForMaterialTypePharmaceuticalsTheSystemAddsOnTheRelevantMarkupInTotalPrice() throws Exception
+	public void testThatForMaterialTypePharmaceuticalsTheSystemAddsOnTheRelevantMarkupInTotalPrice()
 	{
 		nuJob = createNuJob(BASE_PRICE, NuJob.MINIMUM_NUMBER_OF_PERSONS_PER_JOB, NuJob.DRUGS);
 		final double expectedTotalPrice = caclculateTotalPrice(BASE_PRICE, NuJob.MINIMUM_NUMBER_OF_PERSONS_PER_JOB, NuJob.DRUGS);
@@ -128,7 +128,7 @@ public class NuJobTestCase
 	}
 
 	@Test
-	public void testThatForMaterialTypeFoodTheSystemAddsOnTheRelevantMarkupInTotalPrice() throws Exception
+	public void testThatForMaterialTypeFoodTheSystemAddsOnTheRelevantMarkupInTotalPrice()
 	{
 		nuJob = createNuJob(BASE_PRICE, NuJob.MINIMUM_NUMBER_OF_PERSONS_PER_JOB, NuJob.FOOD);
 		final double expectedTotalPrice = caclculateTotalPrice(BASE_PRICE, NuJob.MINIMUM_NUMBER_OF_PERSONS_PER_JOB, NuJob.FOOD);
@@ -136,10 +136,18 @@ public class NuJobTestCase
 	}
 
 	@Test
-	public void testThatForMaterialTypeElectronicsTheSystemAddsOnTheRelevantMarkupInTotalPrice() throws Exception
+	public void testThatForMaterialTypeElectronicsTheSystemAddsOnTheRelevantMarkupInTotalPrice()
 	{
 		nuJob = createNuJob(BASE_PRICE, NuJob.MINIMUM_NUMBER_OF_PERSONS_PER_JOB, NuJob.ELECTRONICS);
 		final double expectedTotalPrice = caclculateTotalPrice(BASE_PRICE, NuJob.MINIMUM_NUMBER_OF_PERSONS_PER_JOB, NuJob.ELECTRONICS);
+		assertEquals("The total price for the job should be " + expectedTotalPrice, expectedTotalPrice, nuJob.getTotalPrice(), DELTA);
+	}
+
+	@Test
+	public void testThatForOtherMaterialTypesTheSystemDoesnotAddAnyMarkupInTotalPrice() throws Exception
+	{
+		nuJob = createNuJob(12456.95, 4, "books");
+		final double expectedTotalPrice = caclculateTotalPrice(12456.95, 4, "books");
 		assertEquals("The total price for the job should be " + expectedTotalPrice, expectedTotalPrice, nuJob.getTotalPrice(), DELTA);
 	}
 }
