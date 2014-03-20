@@ -48,6 +48,8 @@ public class NuJob
 			else if (FOOD.equalsIgnoreCase(materialCategory))
 			{
 				totalPrice += totalPrice * MARKUP_RATIO_FOOD_DECIMAL;
+			}else if("electronics".equalsIgnoreCase(materialCategory)){
+				totalPrice += (totalPrice * 2)/100;
 			}
 
 		}
