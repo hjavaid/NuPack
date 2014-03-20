@@ -13,12 +13,13 @@ public class NuJob
 		{
 			throw new IllegalArgumentException("Only a positive base price is allowed");
 		}
+
 		this.basePrice = basePrice;
 	}
 
 	public final double getTotalPrice()
 	{
-		return this.basePrice * NuJob.DEFAULT_FLAT_MARKUP_PERCENTAGE_IN_DECIMAL;
+		return this.basePrice + this.basePrice * NuJob.DEFAULT_FLAT_MARKUP_PERCENTAGE_IN_DECIMAL;
 	}
 
 }

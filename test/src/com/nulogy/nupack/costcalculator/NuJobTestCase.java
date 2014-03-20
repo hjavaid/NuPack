@@ -24,7 +24,7 @@ public class NuJobTestCase
 	{
 		final double basePrice = 100;
 		final NuJob nuJob = new NuJob(basePrice);
-		assertEquals("The total price for the job should be 5", 5, nuJob.getTotalPrice(), DELTA);
+		assertEquals("The total price for the job should be 5", 105, nuJob.getTotalPrice(), DELTA);
 	}
 
 	@Test
